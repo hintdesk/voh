@@ -1,0 +1,18 @@
+<a [routerLink]="route"
+    class="block bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden cursor-pointer">
+    <div class="bg-green-600 h-32 flex items-center justify-center">
+        @if (image) {
+            <img [src]="image" [alt]="title" class="w-full h-full object-cover" loading="lazy" />
+        } @else {
+            <svg class="w-16 h-16 text-white opacity-80" viewBox="0 0 32 32" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="14" fill="white" fill-opacity="0.2" />
+                <path d="M10 12 Q16 8 22 12 L22 22 Q16 26 10 22 Z" fill="white" fill-opacity="0.9" />
+                <circle cx="16" cy="17" r="3" fill="#16a34a" />
+            </svg>
+        }
+    </div>
+    <div class="p-4">
+        <h2 class="text-lg font-semibold text-gray-800">{{ title }}</h2>
+    </div>
+</a>

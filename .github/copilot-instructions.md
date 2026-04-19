@@ -1,0 +1,1 @@
+- DON'T generate component your self. Use ng generate component to create a new component. The component shoud follow this naming convention: [name].component and puts them in /src/app/components/[name].component
