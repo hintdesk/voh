@@ -1,3 +1,39 @@
-/* You can add global styles to this file, and also import other style files */
-
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
 @import 'tailwindcss';
+
+:root {
+	--voh-ink: #17212b;
+	--voh-muted: #5f6f80;
+	--voh-surface: #ffffff;
+	--voh-sea: #0f766e;
+	--voh-mint: #14b8a6;
+	--voh-sun: #f59e0b;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+}
+
+body {
+	font-family: 'Be Vietnam Pro', sans-serif;
+	color: var(--voh-ink);
+	background-color: #ecf4f3;
+	background-image:
+		radial-gradient(circle at 16% 12%, rgba(20, 184, 166, 0.2) 0, transparent 26%),
+		radial-gradient(circle at 86% 18%, rgba(245, 158, 11, 0.18) 0, transparent 24%),
+		radial-gradient(circle at 82% 80%, rgba(15, 118, 110, 0.2) 0, transparent 26%),
+		linear-gradient(180deg, #f7fbfb 0%, #ecf4f3 56%, #e3efee 100%);
+}
+
+h1,
+h2,
+h3,
+.display-font {
+	font-family: 'Space Grotesk', sans-serif;
+}
