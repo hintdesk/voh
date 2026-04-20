@@ -7,6 +7,7 @@ const PROGRAM_CATEGORY_URL = 'https://voh.com.vn/radio/chuong-trinh-072407110000
 const ALLOWED_PROGRAM_IDS = new Set<string>([
   '59b25ca3-2318-4911-92db-f3474d260611',
   '942d56e9-a790-4f39-80e5-1ae38caa8b4d',
+  '36d5a1c1-7ad2-42cc-b5ef-241e83583e10'
 ]);
 
 export interface ProgramItem {
