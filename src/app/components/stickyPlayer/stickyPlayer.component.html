@@ -39,6 +39,7 @@
 				<audio
 					#audioRef
 					controls
+					(loadedmetadata)="onLoadedMetadata($event)"
 					(timeupdate)="onTimeUpdate($event)"
 					class="w-full h-12 accent-teal-400"
 				></audio>

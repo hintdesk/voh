@@ -31,6 +31,17 @@ export class StickyPlayer {
     this.playerService.closePlayer();
   }
 
+  onLoadedMetadata(event: Event): void {
+    const track = this.playerService.currentTrack();
+    const audio = event.target as HTMLAudioElement;
+    const savedTime = this.playerService.getSavedPlaybackPosition(track?.radioDetailId ?? null);
+    if (savedTime === null || !Number.isFinite(audio.duration) || audio.duration <= 0) {
+      return;
+    }
+
+    audio.currentTime = Math.min(savedTime, Math.max(audio.duration - 1, 0));
+  }
+
   onTimeUpdate(event: Event): void {
     this.playerService.handleAudioTimeUpdate(event.target as HTMLAudioElement);
   }
