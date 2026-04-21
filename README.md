@@ -50,9 +50,9 @@ Chạy ứng dụng:
 npm start
 ```
 
-Mặc định ứng dụng chạy tại địa chỉ:
+Ứng dụng có thể truy cập trực tiếp tại:
 
-- http://localhost:4200
+- [https://hintdesk.github.io/voh/](https://hintdesk.github.io/voh/)
 
 ## Scripts hữu ích
 
