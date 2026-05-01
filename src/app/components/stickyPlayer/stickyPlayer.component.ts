@@ -58,8 +58,8 @@ export class StickyPlayer {
 
     const track = this.playerService.currentTrack();
     const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 160;
+    canvas.width = 307;
+    canvas.height = 96;
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       return;
