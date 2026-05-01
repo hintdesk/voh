@@ -11,6 +11,12 @@ import { PlayerService } from '../../services/player.service';
 export class StickyPlayer {
   readonly playerService = inject(PlayerService);
 
+  private readonly pipHeight = 99;
+  private readonly pipWidth = Math.round((this.pipHeight / 9) * 16);
+  // Double resolution for sharper canvas rendering (downscaled by browser)
+  private readonly canvasHeight = this.pipHeight * 3;
+  private readonly canvasWidth = this.pipWidth * 3;
+
   private audioPlayer?: HTMLAudioElement;
   private pipVideoPlayer?: HTMLVideoElement;
 
@@ -58,8 +64,10 @@ export class StickyPlayer {
 
     const track = this.playerService.currentTrack();
     const canvas = document.createElement('canvas');
-    canvas.width = 307;
-    canvas.height = 96;
+    const width = this.canvasWidth;
+    const height = this.canvasHeight;
+    canvas.width = width;
+    canvas.height = height;
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       return;
@@ -67,7 +75,7 @@ export class StickyPlayer {
 
     // Dark background as fallback
     ctx.fillStyle = '#0f172a';
-    ctx.fillRect(0, 0, 512, 512);
+    ctx.fillRect(0, 0, width, height);
 
     const activate = async () => {
       if (!this.pipVideoPlayer) {
@@ -88,7 +96,26 @@ export class StickyPlayer {
       img.crossOrigin = 'anonymous';
       img.onload = () => {
         try {
-          ctx.drawImage(img, 0, 0, 512, 512);
+          ctx.imageSmoothingEnabled = false;
+          // Scale image to cover canvas (like background-size: cover)
+          const imgAspect = img.width / img.height;
+          const canvasAspect = width / height;
+          let drawWidth = width;
+          let drawHeight = height;
+          let offsetX = 0;
+          let offsetY = 0;
+
+          if (imgAspect > canvasAspect) {
+            // Image is wider: scale by height
+            drawWidth = height * imgAspect;
+            offsetX = (width - drawWidth) / 2;
+          } else {
+            // Image is taller: scale by width
+            drawHeight = width / imgAspect;
+            offsetY = (height - drawHeight) / 2;
+          }
+
+          ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
         } catch {
           // CORS-tainted image — keep dark background
         }
@@ -149,7 +176,7 @@ export class StickyPlayer {
     navigator.mediaSession.metadata = new MediaMetadata({
       title: track.title,
       artist: track.programTitle,
-      artwork: track.image ? [{ src: track.image, sizes: '512x512', type: 'image/jpeg' }] : [],
+      artwork: track.image ? [{ src: track.image, sizes: `${this.pipWidth}x${this.pipHeight}`, type: 'image/jpeg' }] : [],
     });
 
     navigator.mediaSession.setActionHandler('play', () => {
