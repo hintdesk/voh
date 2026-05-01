@@ -54,10 +54,6 @@ export class Program implements OnInit {
   }
 
   playEpisode(episode: EpisodeWithState): void {
-    if (episode.listened) {
-      return;
-    }
-
     episode.loading = true;
     this.dataService.getEpisodeAudioDetail(episode.slug).subscribe({
       next: ({ audioUrl, image, radioDetailId }) => {
@@ -66,12 +62,6 @@ export class Program implements OnInit {
         episode.image = episode.image || image;
 
         this.playerService.rememberEpisodeDetail(episode.slug, radioDetailId);
-
-        if (this.playerService.isEpisodeListened(episode.slug, radioDetailId)) {
-          episode.listened = true;
-          this.episodes.update((list) => [...list]);
-          return;
-        }
 
         episode.audioUrl = audioUrl;
         this.episodes.update((list) => [...list]);

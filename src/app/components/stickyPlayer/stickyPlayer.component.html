@@ -36,6 +36,21 @@
 					</button>
 				</div>
 
+				@if (isPiPSupported) {
+					<button
+						type="button"
+						(click)="enterPiP()"
+						class="self-end flex items-center gap-1.5 rounded-full border border-white/15 bg-white/8 hover:bg-white/14 transition-colors px-3 py-1.5 text-xs text-white/70"
+						aria-label="Bật chế độ hình trong hình"
+					>
+						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<rect x="2" y="4" width="20" height="16" rx="2" />
+							<rect x="12" y="12" width="8" height="6" rx="1" fill="currentColor" stroke="none" />
+						</svg>
+						PiP
+					</button>
+				}
+
 				<audio
 					#audioRef
 					controls
@@ -43,6 +58,7 @@
 					(timeupdate)="onTimeUpdate($event)"
 					class="w-full h-12 accent-teal-400"
 				></audio>
+				<video #videoRef playsinline autopictureinpicture class="absolute w-px h-px opacity-0 pointer-events-none"></video>
 			</div>
 		</div>
 	</div>

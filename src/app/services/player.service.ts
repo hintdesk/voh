@@ -57,7 +57,7 @@ export class PlayerService {
     this.saveSlugToDetailMap();
   }
 
-  handleAudioTimeUpdate(audio: HTMLAudioElement): void {
+  handleAudioTimeUpdate(audio: HTMLMediaElement): void {
     const track = this.currentTrack();
     if (!track?.radioDetailId) {
       return;
