@@ -64,10 +64,9 @@ export class StickyPlayer {
 
     const track = this.playerService.currentTrack();
     const canvas = document.createElement('canvas');
-    const width = this.canvasWidth;
-    const height = this.canvasHeight;
-    canvas.width = width;
-    canvas.height = height;
+
+    canvas.width = this.canvasWidth ;
+    canvas.height = this.canvasHeight;
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       return;
@@ -75,7 +74,7 @@ export class StickyPlayer {
 
     // Dark background as fallback
     ctx.fillStyle = '#0f172a';
-    ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
 
     const activate = async () => {
       if (!this.pipVideoPlayer) {
@@ -96,26 +95,7 @@ export class StickyPlayer {
       img.crossOrigin = 'anonymous';
       img.onload = () => {
         try {
-          ctx.imageSmoothingEnabled = false;
-          // Scale image to cover canvas (like background-size: cover)
-          const imgAspect = img.width / img.height;
-          const canvasAspect = width / height;
-          let drawWidth = width;
-          let drawHeight = height;
-          let offsetX = 0;
-          let offsetY = 0;
-
-          if (imgAspect > canvasAspect) {
-            // Image is wider: scale by height
-            drawWidth = height * imgAspect;
-            offsetX = (width - drawWidth) / 2;
-          } else {
-            // Image is taller: scale by width
-            drawHeight = width / imgAspect;
-            offsetY = (height - drawHeight) / 2;
-          }
-
-          ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+          ctx.drawImage(img, 0, 0, this.canvasWidth, this.canvasHeight);
         } catch {
           // CORS-tainted image — keep dark background
         }
